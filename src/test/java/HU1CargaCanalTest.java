@@ -1,71 +1,95 @@
-import static org.junit.jupiter.api.Assertions.fail;
+package br.senai.sc.edu.projetomaria.service;
 
-import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
-import org.junit.jupiter.api.Test;
+import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
-import br.senai.sc.edu.projetomaria.service.CargaService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-class HU1CargaCanalTest {
-	
-	static CargaService service = null;
-	
-	@BeforeAll
-	static void beforeAll() {
-		ClassLoader classLoader = HU1CargaCanalTest.class.getClassLoader();
-		Path p = null;
-		try {
-		   p = Paths.get(classLoader.getResource("dataset/hu1-carga-canal-insert.csv").toURI());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		service = new CargaService();
-		try {
-			service.insertCanal(p);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			fail("Importação deu falha!");
-		}
+import br.senai.sc.edu.projetomaria.dao.CanalDAO;
+import br.senai.sc.edu.projetomaria.dao.HistoricoDAO;
+import br.senai.sc.edu.projetomaria.dao.ProdutoDAO;
+import br.senai.sc.edu.projetomaria.model.Canal;
+import br.senai.sc.edu.projetomaria.model.Historico;
+import br.senai.sc.edu.projetomaria.model.Produto;
+import br.senai.sc.edu.projetomaria.resource.Messages;
+
+public class RelatorioService {
+	private static final Logger LOGGER = LogManager.getLogger();
+
+	public ServiceResponse exportarFamilia(Path path) {
+//		FamiliaWriter.CSVWriter(path);
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
 	}
 	
-	// HU1 - UPDATE (BDD 2)
-	@Test
-	void updateCanal() {
-		ClassLoader classLoader = getClass().getClassLoader();
-		Path p = null;
-		try {
-			p = Paths.get(classLoader.getResource("dataset/hu1-bdd2-carga-canal-update.csv").toURI());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		try {
-			service.updateCanal(p);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			fail("Update deu ruim!");
-		}
+	public ServiceResponse exportarFamilia() {
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}
+
+	public ServiceResponse exportarProduto(Path path) {
+		ProdutoDAO pdao = new ProdutoDAO();
+		List<Produto> produtos = pdao.exportarProdutos();
+		ServiceResponse response = new ServiceResponse(ServiceResponse.STATUS.OK, produtos);
+		
+		return response;
 	}
 	
-	// HU1 - DELETE (BDD 3)
-	@Test
-	void deleteCanal() {
-		ClassLoader classLoader = getClass().getClassLoader();
-		Path p = null;
-		try {
-			p = Paths.get(classLoader.getResource("dataset/hu1-bdd2-carga-canal-delete.csv").toURI());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		try {
-			service.deleteCanal(p);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			fail("Deletar deu ruim!");
-		}
+	public ServiceResponse exportarProduto() {
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}
+
+	public ServiceResponse exportarCanal(Path path) {
+//		CanalWriter cw = new CanalWriter();
+//		cw.generateRelatorio(path);
+//		String message = String.format(Messages.SUCESSO_RELATORIO_CANAL, path);
+//		LOGGER.info(message);
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}
+
+	public ServiceResponse exportarCanal() {
+
+		CanalDAO cdao = new CanalDAO();
+		List<Canal> canais = cdao.getCanais();
+		ServiceResponse response = new ServiceResponse(ServiceResponse.STATUS.OK, canais);
+		
+		return response;
+	}
+
+	public ServiceResponse exportarHistorico(Path path) {
+//		HistoricoWriter escritor = new HistoricoWriter();
+//		HistoricoDAO dao = new HistoricoDAO();
+//		List<Historico> registros = dao.get();
+//		escritor.writeCsvFile(path, registros);
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}
+
+	public ServiceResponse exportarHistorico() {
+		
+		HistoricoDAO hdao = new HistoricoDAO();
+		List<Historico> historicos = hdao.get();
+		ServiceResponse response = new ServiceResponse(ServiceResponse.STATUS.OK, historicos);
+	
+		return response;
+	}
+
+	public ServiceResponse exportarPhase(Path path) {
+//		PhaseWritter writter = new PhaseWritter();
+//		writter.gerarArquivoPhase(path);
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
 	}
 	
+	public ServiceResponse exportarPhase() {
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}
+		
+	public ServiceResponse exportarEstimativa(Path path, int periodoAnterior) {
+//		EstimativaWritter estimativa = new EstimativaWritter();
+//		estimativa.escrever(path, periodoAnterior);	
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}
+	
+	public ServiceResponse exportarEstimativa(int periodoAnterior) {
+		throw new UnsupportedOperationException(Messages.ERRO_METODO_NAO_IMPLEMENTADO);
+	}	
 	
 }
