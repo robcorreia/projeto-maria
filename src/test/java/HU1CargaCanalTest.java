@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+                                                                                                                                                                                                                                                                                                        zimport static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.List;
 import java.net.URISyntaxException;
@@ -30,5 +30,17 @@ public class HU1CargaCanalTest {
 		assertEquals(response[0], 4);
 		assertEquals(response[1], 0);
 		
-	}
-}
+	}	
+	@AfterAll
+	static void limpandoDB() {
+		Database bd = new Database();
+
+		String sqlcanal = "delete from canal";
+
+		try (Connection conn = bd.getDatabaseConnection(); Statement pl = conn.createStatement();) {
+			pl.executeUpdate(sqlcanal);
+		} catch (SQLException ex) {
+			System.err.print(ex.getMessage());
+		}
+
+ }	
